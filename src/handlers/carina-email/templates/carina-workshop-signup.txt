@@ -1,0 +1,5 @@
+Somebody has submitted information from the landing page at https://getcarina.com/lp/carina-devops-workshop/
+
+Name:  {{ data.name }}
+Email: {{ data.email }}
+Phone: {{ data.phone }}
