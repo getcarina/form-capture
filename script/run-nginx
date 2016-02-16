@@ -1,0 +1,12 @@
+#!/bin/bash
+
+root=$(cd $(dirname ${0})/..; pwd)
+
+docker run -d \
+--restart always \
+--volumes-from nginx-letsencrypt-data \
+-p 443:443 \
+-p 80:80 \
+--name carina-form-capture-nginx-1 \
+--net ${OVERLAY_NETWORK} \
+carina-form-capture-nginx

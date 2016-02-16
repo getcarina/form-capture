@@ -1,0 +1,16 @@
+#!/bin/bash
+
+root=$(cd $(dirname ${0})/..; pwd)
+
+docker build -t carina-form-capture ${root}
+
+docker run \
+--detach \
+--restart always \
+--net ${OVERLAY_NETWORK} \
+--env NODE_PORT=${NODE_PORT} \
+--env MAILGUN_DOMAIN=${MAILGUN_DOMAIN} \
+--env MAILGUN_APIKEY=${MAILGUN_APIKEY} \
+--env CARINA_EMAIL_RECIPIENT=${CARINA_EMAIL_RECIPIENT} \
+--name carina-form-capture-1 \
+carina-form-capture

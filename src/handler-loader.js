@@ -5,29 +5,24 @@ handlers.push(require('./handlers/carina-email'));
 
 module.exports = function (req, res, next) {
   'use strict';
-  var body, handlerToRun;
+  var handlerToRun;
 
   var badRequest = function (e) {
     e = e || null;
+    console.log('Rejecting bad request');
+    console.log(e);
     res.status(400);
     res.end();
     return next(e);
   };
 
-  // Make sure the request is even JSON
-  try {
-    body = JSON.parse(req.body);
-  } catch (e) {
-    return badRequest(e);
-  }
-
-  if (!body || !body.handlerId) {
+  if (!req.body || !req.body.handlerId) {
     return badRequest();
   }
 
   // Find a handler with the provided handlerId
   handlers.forEach((handler) => {
-    if (body.handlerId === handler.id) {
+    if (req.body.handlerId === handler.id) {
       handlerToRun = handler.handler;
     }
   });
